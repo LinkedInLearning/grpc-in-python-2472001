@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+message Location {
+  double lat = 1;
+  double lng = 2;
+}
+
+
+enum RideType {
+  REGULAR = 0;
+  POOL = 1;
+}
+
+message StartRequest {
+  int64 car_id = 1;
+  string driver_id = 2;
+  repeated string passenger_ids = 3;
+  RideType type = 4;
+  Location location = 5;
+  google.protobuf.Timestamp time = 6;
+}
+
+message StartResponse {
+  string id = 1;
+}
+
+service Rides {
+  rpc Start(StartRequest) returns (StartResponse) {}
+}
